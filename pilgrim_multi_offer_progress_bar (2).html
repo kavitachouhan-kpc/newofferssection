@@ -1,0 +1,336 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.phone-wrap { background: var(--color-background-secondary); border-radius: 20px; padding: 14px; max-width: 390px; margin: 0 auto; }
+.phone { background: var(--color-background-primary); border-radius: 14px; border: 0.5px solid var(--color-border-tertiary); overflow: hidden; font-family: var(--font-sans); }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.topbar-logo { font-size: 14px; font-weight: 500; color: var(--color-text-primary); letter-spacing: 0.05em; }
+
+.product-hero { padding: 14px 16px 12px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.product-img-area { background: var(--color-background-secondary); border-radius: 12px; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; position: relative; }
+.new-badge { position: absolute; top: 10px; left: 10px; background: #1D9E75; color: #fff; font-size: 9px; font-weight: 500; padding: 3px 8px; border-radius: 3px; }
+.product-tube { width: 48px; height: 118px; background: #5DCAA5; border-radius: 7px 7px 3px 3px; display: flex; align-items: center; justify-content: center; }
+.product-tube span { font-size: 7px; color: #fff; font-weight: 500; text-align: center; line-height: 1.4; padding: 0 3px; }
+.product-name { font-size: 15px; font-weight: 500; color: var(--color-text-primary); line-height: 1.35; margin-bottom: 2px; }
+.product-sub { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 8px; }
+.price-row { display: flex; align-items: baseline; gap: 6px; }
+.price { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.price-note { font-size: 11px; color: var(--color-text-tertiary); }
+
+.offers-zone { padding: 12px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.offers-title { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+
+.offer-bar { border-radius: 10px; border: 0.5px solid var(--color-border-tertiary); margin-bottom: 8px; overflow: hidden; transition: border-color 0.3s, background 0.3s; }
+.offer-bar:last-child { margin-bottom: 0; }
+
+.offer-top { display: flex; align-items: center; gap: 10px; padding: 10px 12px 8px; }
+.offer-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.offer-icon svg { width: 14px; height: 14px; }
+.icon-first { background: #FBEAF0; }
+.icon-20 { background: #FAEEDA; }
+.icon-35 { background: #E1F5EE; }
+
+.offer-info { flex: 1; min-width: 0; }
+.offer-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+.offer-sublabel { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; }
+.offer-status { flex-shrink: 0; font-size: 11px; font-weight: 500; }
+.status-locked { color: var(--color-text-tertiary); }
+.status-active { color: #0F6E56; }
+.status-unlocked { color: #0F6E56; }
+
+.offer-progress-row { padding: 0 12px 4px; }
+.track { height: 5px; background: var(--color-background-secondary); border-radius: 3px; overflow: hidden; }
+.fill { height: 5px; border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+.fill-pink { background: #D4537E; }
+.fill-amber { background: #BA7517; }
+.fill-teal { background: #1D9E75; }
+
+.offer-foot { display: flex; justify-content: space-between; align-items: center; padding: 4px 12px 8px; }
+.foot-msg { font-size: 10px; color: var(--color-text-secondary); }
+.foot-msg.green { color: #085041; font-weight: 500; }
+.foot-msg.amber { color: #633806; font-weight: 500; }
+.foot-cta { font-size: 10px; color: #1D9E75; font-weight: 500; cursor: pointer; background: none; border: none; }
+
+.unlocked-bar { background: #E1F5EE; border-color: #5DCAA5 !important; }
+.active-bar { border-color: #FAC775 !important; }
+.first-unlocked { background: #FBEAF0; border-color: #ED93B1 !important; }
+
+.offers-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 2px 0 2px; user-select: none; }
+.offers-header-left { display: flex; align-items: center; gap: 10px; }
+.offers-gift-icon { width: 32px; height: 32px; border-radius: 8px; background: #E1F5EE; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.offers-header-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.offers-header-sub { font-size: 11px; color: #1D9E75; margin-top: 1px; }
+.offers-chevron { width: 24px; height: 24px; border-radius: 50%; background: #E1F5EE; display: flex; align-items: center; justify-content: center; transition: transform 0.25s; flex-shrink: 0; }
+.offers-chevron.open { transform: rotate(180deg); }
+
+.unlock-row { display: flex; align-items: center; gap: 6px; padding: 6px 12px 8px; }
+.check-pill { display: flex; align-items: center; gap: 5px; }
+.check-c { width: 16px; height: 16px; border-radius: 50%; background: #1D9E75; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.check-c svg { width: 9px; height: 9px; }
+.unlock-text { font-size: 11px; color: #085041; }
+
+.first-check-c { background: #D4537E; }
+.first-unlock-text { color: #72243E; }
+
+.atc-zone { padding: 12px 16px 14px; }
+.atc-btn { width: 100%; padding: 13px; border-radius: 10px; background: #1D9E75; border: none; font-size: 14px; font-weight: 500; color: #fff; cursor: pointer; transition: background 0.15s; }
+.atc-btn:hover { background: #0F6E56; }
+
+.sim-wrap { margin-top: 16px; padding: 0 4px 4px; }
+.sim-label { font-size: 11px; color: var(--color-text-tertiary); text-align: center; margin-bottom: 8px; }
+.sim-row { display: flex; gap: 6px; }
+.sim-btn { flex: 1; padding: 7px 4px; border-radius: 6px; border: 0.5px solid var(--color-border-tertiary); background: transparent; font-size: 10px; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; text-align: center; }
+.sim-btn.on { border-color: #1D9E75; background: #E1F5EE; color: #085041; font-weight: 500; }
+</style>
+
+<div class="phone-wrap">
+  <div class="phone">
+
+    <div class="topbar">
+      <span style="font-size:16px;color:var(--color-text-secondary);">&#8592;</span>
+      <span class="topbar-logo">pilgrim</span>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2.5 5.5h13l-1.5 8h-10l-1.5-8z" stroke="var(--color-text-secondary)" stroke-width="1.2" stroke-linejoin="round"/><path d="M6 5.5V4a3 3 0 016 0v1.5" stroke="var(--color-text-secondary)" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="product-hero">
+      <div class="product-img-area">
+        <div class="new-badge">NEW LAUNCH</div>
+        <div class="product-tube"><span>5% Vit C<br>SPF 50+<br>PA++++</span></div>
+      </div>
+      <div class="product-name">5% Vitamin C Brightening Serum Sunscreen SPF 50+ PA++++</div>
+      <div class="product-sub">Triple Glow +++ · Advanced Sun Protection</div>
+      <div class="price-row">
+        <span class="price" id="livePrice">₹495</span>
+        <span class="price-note" id="priceNote">MRP incl. all taxes</span>
+      </div>
+    </div>
+
+    <div class="offers-zone">
+      <div class="offers-header" id="offersHeader" onclick="toggleOffers()">
+        <div class="offers-header-left">
+          <div class="offers-gift-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="2" stroke="#1D9E75" stroke-width="1.1"/><path d="M7 5V13M1 8h12M4.5 5C3 5 2 4 2 3s1-1.5 2.5-1.5C6 1.5 7 3 7 5M9.5 5C11 5 12 4 12 3s-1-1.5-2.5-1.5C8 1.5 7 3 7 5" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="offers-header-title" id="offersHeaderTitle">3 offers available</div>
+            <div class="offers-header-sub" id="offersHeaderSub">Tap to view &amp; save up to 35%</div>
+          </div>
+        </div>
+        <div class="offers-chevron" id="offersChevron">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1D9E75" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div id="offersBody" style="display:none; padding-top:10px;">
+
+      <div class="offer-bar" id="bar-first">
+        <div class="offer-top">
+          <div class="offer-icon icon-first">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.2 2.4 2.8.4-2 2 .5 2.7L7 7.2 4.5 8.5 5 5.8 3 3.8l2.8-.4L7 1z" fill="#D4537E"/></svg>
+          </div>
+          <div class="offer-info">
+            <div class="offer-label">Flat 15% off — first order</div>
+            <div class="offer-sublabel" id="first-sub">Use code FIRST15 at checkout</div>
+          </div>
+          <div class="offer-status" id="first-status"></div>
+        </div>
+        <div id="first-unlock-row" class="unlock-row" style="display:none;">
+          <div class="check-pill">
+            <div class="check-c first-check-c"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="unlock-text first-unlock-text">Eligible! Save <strong>₹74</strong> · Apply in cart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-bar" id="bar-20">
+        <div class="offer-top">
+          <div class="offer-icon icon-20">
+            <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="7" rx="2" stroke="#BA7517" stroke-width="1.1"/><path d="M5 4V3a2 2 0 014 0v1" stroke="#BA7517" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div class="offer-info">
+            <div class="offer-label">Flat 20% off on ₹699+</div>
+            <div class="offer-sublabel" id="sub-20">Add ₹<span id="need-20">204</span> more to unlock</div>
+          </div>
+          <div class="offer-status status-locked" id="status-20">Locked</div>
+        </div>
+        <div class="offer-progress-row">
+          <div class="track"><div class="fill fill-amber" id="fill-20" style="width:71%"></div></div>
+        </div>
+        <div class="offer-foot">
+          <span class="foot-msg" id="msg-20">₹495 of ₹699 in cart</span>
+          <button class="foot-cta" onclick="sendPrompt('Show me eligible products to add to reach ₹699 and unlock 20% off on Pilgrim')">Add products ›</button>
+        </div>
+        <div id="unlock-20" class="unlock-row" style="display:none;">
+          <div class="check-pill">
+            <div class="check-c"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="unlock-text">You're eligible! Save <strong id="save-20-amt"></strong> · Apply in cart</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-bar" id="bar-35">
+        <div class="offer-top">
+          <div class="offer-icon icon-35">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M5 4a1 1 0 102 0 1 1 0 00-2 0zM7 10a1 1 0 102 0 1 1 0 00-2 0z" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div class="offer-info">
+            <div class="offer-label">Flat 35% off on ₹999+</div>
+            <div class="offer-sublabel" id="sub-35">Add ₹<span id="need-35">504</span> more to unlock</div>
+          </div>
+          <div class="offer-status status-locked" id="status-35">Locked</div>
+        </div>
+        <div class="offer-progress-row">
+          <div class="track"><div class="fill fill-teal" id="fill-35" style="width:49%"></div></div>
+        </div>
+        <div class="offer-foot">
+          <span class="foot-msg" id="msg-35">₹495 of ₹999 in cart</span>
+          <button class="foot-cta" onclick="sendPrompt('Show me eligible products to add to reach ₹999 and unlock 35% off on Pilgrim')">Add products ›</button>
+        </div>
+        <div id="unlock-35" class="unlock-row" style="display:none;">
+          <div class="check-pill">
+            <div class="check-c"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="unlock-text">You're eligible! Save <strong id="save-35-amt"></strong> · Apply in cart</span>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /offersBody -->
+    </div>
+
+    <div class="atc-zone">
+      <button class="atc-btn">Add to cart</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="sim-wrap">
+  <div class="sim-label">Simulate cart value</div>
+  <div class="sim-row">
+    <button class="sim-btn on" id="sim0" onclick="setCart(495)">₹495<br><span style="font-size:9px;opacity:0.7;">1 product</span></button>
+    <button class="sim-btn" id="sim1" onclick="setCart(699)">₹699<br><span style="font-size:9px;opacity:0.7;">2 products</span></button>
+    <button class="sim-btn" id="sim2" onclick="setCart(990)">₹990<br><span style="font-size:9px;opacity:0.7;">3 products</span></button>
+    <button class="sim-btn" id="sim3" onclick="setCart(1090)">₹1,090<br><span style="font-size:9px;opacity:0.7;">4 products</span></button>
+  </div>
+</div>
+
+<script>
+const sims = [495, 699, 990, 1090];
+let offersOpen = false;
+
+function toggleOffers() {
+  offersOpen = !offersOpen;
+  document.getElementById('offersBody').style.display = offersOpen ? 'block' : 'none';
+  document.getElementById('offersChevron').classList.toggle('open', offersOpen);
+}
+
+function setCart(val) {
+  sims.forEach((v, i) => {
+    document.getElementById('sim' + i).classList.toggle('on', v === val);
+  });
+
+  const isFirst = val >= 495;
+  const hit20 = val >= 699;
+  const hit35 = val >= 999;
+
+  const pct20 = Math.min(100, Math.round((val / 699) * 100));
+  const pct35 = Math.min(100, Math.round((val / 999) * 100));
+
+  document.getElementById('fill-20').style.width = pct20 + '%';
+  document.getElementById('fill-35').style.width = pct35 + '%';
+
+  const bar20 = document.getElementById('bar-20');
+  const bar35 = document.getElementById('bar-35');
+  const barFirst = document.getElementById('bar-first');
+
+  if (hit20) {
+    document.getElementById('sub-20').textContent = 'Eligible · Apply in cart';
+    document.getElementById('status-20').textContent = 'Eligible';
+    document.getElementById('status-20').className = 'offer-status status-unlocked';
+    document.getElementById('msg-20').textContent = '';
+    document.getElementById('unlock-20').style.display = 'flex';
+    const saving = Math.round(val * 0.20);
+    document.getElementById('save-20-amt').textContent = '₹' + saving;
+    bar20.classList.add('unlocked-bar');
+    bar20.classList.remove('active-bar');
+    document.querySelector('#bar-20 .foot-cta').style.display = 'none';
+  } else {
+    const need = 699 - val;
+    document.getElementById('need-20').textContent = need;
+    document.getElementById('sub-20').innerHTML = 'Add ₹<span id="need-20">' + need + '</span> more to unlock';
+    document.getElementById('status-20').textContent = 'Locked';
+    document.getElementById('status-20').className = 'offer-status status-locked';
+    document.getElementById('msg-20').textContent = '₹' + val + ' of ₹699 in cart';
+    document.getElementById('unlock-20').style.display = 'none';
+    bar20.classList.remove('unlocked-bar');
+    if (pct20 > 60) bar20.classList.add('active-bar');
+    else bar20.classList.remove('active-bar');
+    document.querySelector('#bar-20 .foot-cta').style.display = '';
+  }
+
+  if (hit35) {
+    document.getElementById('sub-35').textContent = 'Eligible · Apply in cart';
+    document.getElementById('status-35').textContent = 'Eligible';
+    document.getElementById('status-35').className = 'offer-status status-unlocked';
+    document.getElementById('msg-35').textContent = '';
+    document.getElementById('unlock-35').style.display = 'flex';
+    const saving35 = Math.round(val * 0.35);
+    document.getElementById('save-35-amt').textContent = '₹' + saving35;
+    bar35.classList.add('unlocked-bar');
+    document.querySelector('#bar-35 .foot-cta').style.display = 'none';
+  } else {
+    const need35 = 999 - val;
+    document.getElementById('need-35').textContent = need35;
+    document.getElementById('sub-35').innerHTML = 'Add ₹<span id="need-35">' + need35 + '</span> more to unlock';
+    document.getElementById('status-35').textContent = 'Locked';
+    document.getElementById('status-35').className = 'offer-status status-locked';
+    document.getElementById('msg-35').textContent = '₹' + val + ' of ₹999 in cart';
+    document.getElementById('unlock-35').style.display = 'none';
+    bar35.classList.remove('unlocked-bar');
+    document.querySelector('#bar-35 .foot-cta').style.display = '';
+  }
+
+  if (isFirst) {
+    document.getElementById('first-sub').textContent = 'Use code FIRST15 at checkout';
+    document.getElementById('first-status').textContent = '';
+    document.getElementById('first-unlock-row').style.display = 'flex';
+    barFirst.classList.add('first-unlocked');
+  } else {
+    document.getElementById('first-unlock-row').style.display = 'none';
+    barFirst.classList.remove('first-unlocked');
+  }
+
+  const saving20 = hit20 ? Math.round(val * 0.20) : 0;
+  const saving35 = hit35 ? Math.round(val * 0.35) : 0;
+  const saving15 = isFirst ? Math.round(val * 0.15) : 0;
+  const bestSaving = Math.max(saving20, saving35, saving15);
+
+  if (bestSaving > 0) {
+    document.getElementById('livePrice').textContent = '₹' + (val - bestSaving);
+    document.getElementById('priceNote').textContent = 'after best offer · MRP ₹' + val;
+  } else {
+    document.getElementById('livePrice').textContent = '₹' + val;
+    document.getElementById('priceNote').textContent = 'MRP incl. all taxes';
+  }
+
+  const eligibleCount = (isFirst ? 1 : 0) + (hit20 ? 1 : 0) + (hit35 ? 1 : 0);
+  const titleEl = document.getElementById('offersHeaderTitle');
+  const subEl = document.getElementById('offersHeaderSub');
+
+  if (eligibleCount > 0) {
+    titleEl.textContent = eligibleCount + ' offer' + (eligibleCount > 1 ? 's' : '') + ' eligible';
+    titleEl.style.color = '#085041';
+    subEl.textContent = 'You\'re saving ₹' + bestSaving + ' · Tap to apply';
+    subEl.style.color = '#1D9E75';
+    subEl.style.fontWeight = '500';
+    document.getElementById('offersGiftIcon') && (document.getElementById('offersGiftIcon').style.background = '#E1F5EE');
+  } else {
+    titleEl.textContent = '3 offers available';
+    titleEl.style.color = '';
+    subEl.textContent = 'Tap to view & save up to 35%';
+    subEl.style.color = '#1D9E75';
+    subEl.style.fontWeight = '';
+  }
+}
+</script>
